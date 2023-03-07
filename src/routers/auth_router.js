@@ -13,7 +13,8 @@ router.get(
 );
 
 router.post(
-  "/register",authMiddleware.loggedOut , 
+  "/register",
+  authMiddleware.loggedOut,
   validatorMiddleware.validateNewUser(),
   authController.register
 );
@@ -31,7 +32,9 @@ router.post(
   authController.login
 );
 
-router.get("/logout",authMiddleware.loggedIn , authController.logout);
+router.get("/logout", authMiddleware.loggedIn, authController.logout);
+
+router.get("/verify", authController.verifyEmail);
 
 router.get(
   "/forget-password",
@@ -39,6 +42,11 @@ router.get(
   authController.showForgetPassword
 );
 
-router.post("/forget-password", authMiddleware.loggedOut ,  authController.resetPassword);
+router.post("/forget-password",authMiddleware.loggedOut,validatorMiddleware.validateEmail(),authController.resetPassword
+);
+
+router.get('/reset-password/:id/:token',authController.resetPasswordForm)
+router.get('/reset-password',authController.resetPasswordForm)
+router.post('/reset-password',validatorMiddleware.validateNewPassword(),authController.saveNewPassword)
 
 module.exports = router;

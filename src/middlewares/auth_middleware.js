@@ -15,6 +15,8 @@ const loggedOut = function (req, res, next) {
   }
 };
 
+
+
 module.exports = {
   loggedIn,
   loggedOut,

@@ -12,6 +12,8 @@ const path = require("path");
 // include express and ejs
 app.use(expressLayouts);
 app.use(express.static("public"));
+// LİKE ADD A NİCK NAME ON UPLOADS WİTH CODE BELOW
+app.use("/uploads", express.static(path.join(__dirname,"/src/uploads")));
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./src/views"));
 
@@ -46,11 +48,10 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.validation_errors = req.flash("validation_errors");
   res.locals.success_message = req.flash("success_message");
+  res.locals.login_error = req.flash("error");
   res.locals.email = req.flash("email");
   res.locals.name = req.flash("name");
   res.locals.surname = req.flash("surname");
-  // login errorlarını yakalamak
-  res.locals.login_error = req.flash("error");
   next();
 });
 

@@ -23,9 +23,9 @@ const validateNewUser = () => {
       .withMessage("password must be max 15 characters"),
     body("repassword")
       .trim()
-      .custom((value, { req }) => {
+      .custom((value , { req }) => {
         if (value !== req.body.password) {
-          throw new Error("repassword not same with password!");
+          throw new Error("Repassword not same with password!");
         }
         return true;
       }),
@@ -44,7 +44,37 @@ const validateLogin = () => {
   ];
 };
 
+const validateNewPassword = () => {
+  return [
+    body("password")
+      .trim()
+      .isLength({ min: 3 })
+      .withMessage("Your new Password must be min 3 characters")
+      .isLength({ max: 30 })
+      .withMessage("Unbelievebal! Your new password is must be max 30 characters"),
+    body("repassword")
+      .trim()
+      .isLength({ min: 3 })
+      .withMessage("Your new password is must be min 3 characters")
+      .isLength({ max: 30 })
+      .withMessage(
+        "Unbelievebal!! Your new password is must be max 30 characters"
+      ).custom((value , { req }) => {
+        if(value !== req.body.password){
+          throw new Error("Repassword not same with password!")
+        }
+        return true;
+      })
+  ];
+};
+
+const validateEmail = () => {
+  return [body("email").trim().isEmail().withMessage("Enter a valid email!")];
+};
+
 module.exports = {
   validateNewUser,
-  validateLogin
+  validateLogin,
+  validateEmail,
+  validateNewPassword
 };

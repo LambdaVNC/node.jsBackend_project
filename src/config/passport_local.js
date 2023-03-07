@@ -1,6 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../model/user_model.js");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
 
 // passport.use(new LocalStrategy(function(username, password, done) {
 //     User.findOne({ username: username }, function (err, user) {
@@ -12,7 +13,9 @@ const passport = require("passport");
 //   }
 // ));
 
-module.exports = function (passportl) {
+
+
+module.exports = function (passport) {
   passport.use(
     new LocalStrategy(
       { usernameField: "email", passwordField: "password" },
@@ -23,7 +26,16 @@ module.exports = function (passportl) {
           if (!_bulunanUser) {
             return done(null, false, { message: "user not found" });
           }
-          if (_bulunanUser.password !== password) {
+          if (_bulunanUser && _bulunanUser.verifyEmail == false) {
+            return done(null, false, { message: "Please verify email" });
+          }
+
+          const passwordControl = await bcrypt.compare(
+            password,
+            _bulunanUser.password
+          );
+
+          if (!passwordControl) {
             return done(null, false, { message: "user password not correct" });
           } else {
             return done(null, _bulunanUser);
@@ -43,12 +55,14 @@ module.exports = function (passportl) {
 
   passport.deserializeUser(function (id, done) {
     User.User.findById(id, function (err, user) {
-        const newUser = {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          surname: user.surname
-        }
+      const newUser = {
+        _id: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        createdAt : user.createdAt,
+        avatar: user.avatar
+      };
       done(err, newUser);
     });
   });
