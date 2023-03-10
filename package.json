@@ -1,14 +1,14 @@
 {
   "name": "fullwebsite_project",
   "version": "1.0.0",
-  "description": "",
+  "description": "community editor",
   "main": "app.js",
   "scripts": {
-    "dev":  "nodemon app.js",
+    "dev": "nodemon app.js",
     "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Lambda",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -27,5 +27,14 @@
     "nodemon": "^2.0.20",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LambdaVNC/node.jsBackend_project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LambdaVNC/node.jsBackend_project/issues"
+  },
+  "homepage": "https://github.com/LambdaVNC/node.jsBackend_project#readme"
 }
