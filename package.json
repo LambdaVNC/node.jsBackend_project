@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node app.js"
   },
+  "engines": {
+    "node": "18.12.1",
+    "npm" : "9.6.1"
+  },
   "keywords": [],
   "author": "Lambda",
   "license": "ISC",

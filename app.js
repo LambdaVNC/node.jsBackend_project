@@ -77,6 +77,7 @@ app.get("/", (req, res) => {
 
 app.use("/", authRouter);
 app.use("/management", managementRouter);
-app.listen(process.env.PORT || 3000, (_) => {
-  console.log(`The server is up from port ${process.env.PORT}!`, this.address().port, app.settings.env);
+var PORT = process.env.PORT || 3000;
+app.listen(PORT, (_) => {
+  console.log(`The server is up from port ${process.env.PORT}!` );
 });
